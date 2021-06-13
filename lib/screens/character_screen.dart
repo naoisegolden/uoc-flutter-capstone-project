@@ -22,14 +22,12 @@ class CharacterScreen extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.start,
-          // mainAxisAlignment: MainAxisAlignment.start,
           children: [
             CharacterCardData(character),
             SizedBox(height: 24.0),
             Text(character['description'].isEmpty
-                ? character['description']
-                : 'No description available.'),
+                ? 'No description available.'
+                : character['description']),
             SizedBox(height: 24.0),
             ElevatedButton(
               onPressed: () async {

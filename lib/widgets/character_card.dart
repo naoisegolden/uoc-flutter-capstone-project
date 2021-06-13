@@ -19,13 +19,6 @@ class CharacterCard extends StatelessWidget {
                 color: Colors.transparent,
                 child: InkWell(
                     onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) =>
-                      //         CharacterScreen(character: character),
-                      //   ),
-                      // );
                       Navigator.pushNamed(context, CharacterScreen.id,
                           arguments: {'characterId': character['id']});
                     },
