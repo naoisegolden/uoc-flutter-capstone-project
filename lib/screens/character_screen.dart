@@ -1,6 +1,7 @@
 import 'package:capstone_project/widgets/character_card_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CharacterScreen extends StatelessWidget {
   static const String id = '/character';
@@ -31,8 +32,18 @@ class CharacterScreen extends StatelessWidget {
                 : 'No description available.'),
             SizedBox(height: 24.0),
             ElevatedButton(
-              onPressed: () => {
-                //...
+              onPressed: () async {
+                var url = character['urls']
+                    .firstWhere((url) => url['type'] == 'detail')['url'];
+
+                try {
+                  // ignore: await_only_futures
+                  await _launchURL(url);
+                } catch (error) {
+                  final snackBar = SnackBar(content: Text(error));
+
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }
               },
               child: Text('Visit on-line profile'),
             )
@@ -41,4 +52,7 @@ class CharacterScreen extends StatelessWidget {
       ),
     );
   }
+
+  void _launchURL(url) async =>
+      await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
 }
