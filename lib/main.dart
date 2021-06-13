@@ -23,7 +23,7 @@ Future main() async {
   var hash = md5.convert(utf8.encode(unhashed)).toString();
 
   var url = Uri.https('gateway.marvel.com', '/v1/public/characters',
-      {'ts': ts, 'apikey': apiKey, 'hash': hash});
+      {'ts': ts, 'apikey': apiKey, 'hash': hash, 'limit': '50'});
 
   // Await the http get response, then decode the json-formatted response.
   var response = await http.get(url);
