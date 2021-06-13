@@ -6,7 +6,8 @@ import 'package:http/http.dart' as http;
 import 'package:crypto/crypto.dart';
 import 'package:provider/provider.dart';
 
-import 'widgets/character_card.dart';
+import 'screens/character_screen.dart';
+import 'screens/home_screen.dart';
 
 Future fetchCharacters() async {}
 
@@ -23,7 +24,7 @@ Future main() async {
   var hash = md5.convert(utf8.encode(unhashed)).toString();
 
   var url = Uri.https('gateway.marvel.com', '/v1/public/characters',
-      {'ts': ts, 'apikey': apiKey, 'hash': hash, 'limit': '50'});
+      {'ts': ts, 'apikey': apiKey, 'hash': hash, 'limit': '100'});
 
   // Await the http get response, then decode the json-formatted response.
   var response = await http.get(url);
@@ -47,41 +48,20 @@ class MyApp extends StatelessWidget {
       title: 'Capstone Project',
       theme: ThemeData(
         primarySwatch: Colors.pink,
-      ),
-      home: MyHomePage(title: 'Capstone Project: Marvel Characters'),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  MyHomePage({this.title});
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    final data = context.read<List>();
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: Center(
-        child: ListView.builder(
-          padding: EdgeInsets.all(8.0),
-          itemCount: data == null ? 0 : data.length,
-          itemBuilder: (BuildContext context, int index) {
-            return CharacterCard(data[index]);
-          },
-          // child: ListView(
-          //   children: data
-          //       .map((character) => Container(
-          //             height: 50,
-          //             color: Colors.amber[600],
-          //             child: Center(child: Text(character['name'])),
-          //           ))
-          //       .toList(),
+        textTheme: TextTheme(
+          bodyText2: TextStyle(fontSize: 18.0),
+          button: TextStyle(fontSize: 18.0),
         ),
+        fontFamily: 'FrancoisOne',
+        pageTransitionsTheme: PageTransitionsTheme(builders: {
+          TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+        }),
       ),
+      initialRoute: HomeScreen.id,
+      routes: {
+        HomeScreen.id: (context) => HomeScreen(),
+        CharacterScreen.id: (context) => CharacterScreen(),
+      },
     );
   }
 }
