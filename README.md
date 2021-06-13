@@ -1,16 +1,42 @@
-# capstone_project
+# Capstone Project
 
-A new Flutter project.
+Exercise 3 from PAC5 in "Noves tendències en el desenvolupament d'aplicacions mòbils" by Naoise Golden Santos.
 
-## Getting Started
+## Description
 
-This project is a starting point for a Flutter application.
+This project uses the Marvel API to display a list of Marvel character and their details. 
 
-A few resources to get you started if this is your first Flutter project:
+## Screens
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+There are 2 screens. The home screen displays a list of characters on a clickable card. The character screen shows the name, picture and description of the character and displays a button to open the official details page in the web browser.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Used packages
+
+`flutter_dotenv` to hide the API secrets.
+
+`http` to access the API.
+
+`crypto` to create the hash needed to authenticate with the API provider.
+
+`provider` to handle app state.
+
+`url_launcher` to open a URL with the native web browser.
+
+## Noteworthy widgets
+
+`Semantics` to add semantic information in character cards.
+
+`Snackbar` to show error messages.
+
+`InkWell` to create the ripple effect when selecting a card.
+
+## How to launch
+
+Create a .env file in the root folder with the following information:
+
+```sh
+MARVEL_API_PUBLIC_KEY=
+MARVEL_API_PRIVATE_KEY=
+```
+
+You must obtain the keys by registering in [developer.marvel.com](https://developer.marvel.com/). (Or ask me by email and I'll forward mine.)
