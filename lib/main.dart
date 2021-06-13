@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 import 'package:crypto/crypto.dart';
 import 'package:provider/provider.dart';
 
+import 'widgets/character_card.dart';
+
 Future fetchCharacters() async {}
 
 Future main() async {
@@ -44,7 +46,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Capstone Project',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.pink,
       ),
       home: MyHomePage(title: 'Capstone Project: Marvel Characters'),
     );
@@ -65,12 +67,10 @@ class MyHomePage extends StatelessWidget {
       ),
       body: Center(
         child: ListView.builder(
+          padding: EdgeInsets.all(8.0),
           itemCount: data == null ? 0 : data.length,
           itemBuilder: (BuildContext context, int index) {
-            return new Container(
-                height: 50,
-                color: Colors.amber[index % 2 == 0 ? 200 : 100],
-                child: Center(child: new Text(data[index]['name'])));
+            return CharacterCard(data[index]);
           },
           // child: ListView(
           //   children: data
