@@ -1,3 +1,4 @@
+import 'package:capstone_project/MarvelCharacters.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../widgets/character_card.dart';
@@ -9,7 +10,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final characters = context.read<List>();
+    final characters = context.watch<MarvelCharacters>().characters;
     return Scaffold(
       appBar: AppBar(
         title: Text('Capstone Project: Marvel Characters'),
@@ -19,6 +20,10 @@ class HomeScreen extends StatelessWidget {
           padding: EdgeInsets.all(16.0),
           itemCount: characters == null ? 0 : characters.length,
           itemBuilder: (BuildContext context, int index) {
+            if (index == characters.length - 1) {
+              // Fetch next page on reaching last item
+              print('bottom reached');
+            }
             return CharacterCard(characters[index]);
           },
           // child: ListView(

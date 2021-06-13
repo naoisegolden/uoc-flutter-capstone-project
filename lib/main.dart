@@ -9,9 +9,9 @@ import 'package:provider/provider.dart';
 import 'screens/character_screen.dart';
 import 'screens/home_screen.dart';
 
-Future fetchCharacters() async {}
+import 'MarvelCharacters.dart';
 
-Future main() async {
+Future fetchCharacters() async {
   var characters = [];
 
   await dotenv.load();
@@ -24,7 +24,7 @@ Future main() async {
   var hash = md5.convert(utf8.encode(unhashed)).toString();
 
   var url = Uri.https('gateway.marvel.com', '/v1/public/characters',
-      {'ts': ts, 'apikey': apiKey, 'hash': hash, 'limit': '100'});
+      {'ts': ts, 'apikey': apiKey, 'hash': hash, 'limit': '20'});
 
   // Await the http get response, then decode the json-formatted response.
   var response = await http.get(url);
@@ -35,10 +35,20 @@ Future main() async {
     print('Request failed with status: ${response.statusCode}.');
   }
 
-  runApp(Provider(
-    create: (_) => characters,
-    child: MyApp(),
-  ));
+  return characters;
+}
+
+Future main() async {
+  var characters = await fetchCharacters();
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MarvelCharacters(characters)),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
