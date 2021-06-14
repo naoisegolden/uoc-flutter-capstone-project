@@ -52,7 +52,8 @@ class MarvelCharacters with ChangeNotifier {
       print('Request failed with status: ${response.statusCode}.');
     }
 
+    // Update offset and add new loaded characters to list
     _offset = _offset + LOADED_ITEMS;
-    characters = loadedCharacters;
+    characters = characters + loadedCharacters;
   }
 }

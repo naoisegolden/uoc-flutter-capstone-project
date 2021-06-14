@@ -1,3 +1,4 @@
+import 'package:capstone_project/MarvelCharacters.dart';
 import 'package:capstone_project/widgets/character_card_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -6,12 +7,12 @@ import 'package:url_launcher/url_launcher.dart';
 class CharacterScreen extends StatelessWidget {
   static const String id = '/character';
 
-  CharacterScreen({Key key}) : super(key: key);
+  CharacterScreen();
 
   @override
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context).settings.arguments as Map;
-    final characters = context.read<List>();
+    final characters = context.watch<MarvelCharacters>().characters;
     final character = characters
         .firstWhere((character) => character['id'] == arguments['characterId']);
 

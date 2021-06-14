@@ -11,7 +11,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var characters = context.watch<MarvelCharacters>().characters;
+    var marvelCharacters = context.watch<MarvelCharacters>();
+    var characters = marvelCharacters.characters;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Capstone Project: Marvel Characters'),
@@ -24,7 +26,7 @@ class HomeScreen extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   if (index == characters.length - 1) {
                     // Fetch next page on reaching last item
-                    print('bottom reached');
+                    marvelCharacters.fetchCharacters();
                   }
                   return CharacterCard(characters[index]);
                 },
