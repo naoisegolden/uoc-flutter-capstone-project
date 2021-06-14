@@ -1,8 +1,10 @@
-import 'package:capstone_project/MarvelCharacters.dart';
+import 'package:capstone_project/screens/comics_screen.dart';
 import 'package:capstone_project/widgets/character_card_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../MarvelCharacters.dart';
 
 class CharacterScreen extends StatelessWidget {
   static const String id = '/character';
@@ -15,12 +17,16 @@ class CharacterScreen extends StatelessWidget {
     final characters = context.watch<MarvelCharacters>().characters;
     final character = characters
         .firstWhere((character) => character['id'] == arguments['characterId']);
+    final name = character['name'];
+    final comics = character['comics']['items'];
+    final availableComics = character['comics']['available'];
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(character['name']),
+        title: Text(name),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
+          child: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
@@ -45,10 +51,30 @@ class CharacterScreen extends StatelessWidget {
                 }
               },
               child: Text('Visit on-line profile'),
-            )
+            ),
+            SizedBox(height: 24.0),
+            Text('$name appears in $availableComics comic books:'),
+            SizedBox(height: 8.0),
+            Column(
+                children: comics
+                    .take(5)
+                    .map<Widget>((comic) => Text(
+                          comic['name'],
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(color: Colors.black54),
+                        ))
+                    .toList()),
+            SizedBox(height: 24.0),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, ComicsScreen.id,
+                    arguments: {'characterId': character['id']});
+              },
+              child: Text('See complete list'),
+            ),
           ],
         ),
-      ),
+      )),
     );
   }
 

@@ -8,7 +8,15 @@ This project uses the Marvel API to display a list of Marvel character and their
 
 ## Screens
 
-There are 2 screens. The home screen displays a list of characters on a clickable card. The character screen shows the name, picture and description of the character and displays a button to open the official details page in the web browser.
+There are 3 screens. 
+
+The `Home` screen displays a list of characters on a clickable card. When the scroll reaches the end of the list, it loads the next batch of items from the API, making it an infinite scroll.
+
+The `Character` screen shows the name, picture and description of the character and displays a button to open the official details page in the web browser. It also shows the 5 first comics and a button to see the complete list.
+
+The `Comics` screen shows the complete list of the comics where the selected character appears.
+
+All screens get their data through the `ChangeNotifierProvider` and the `MarvelCharacter` class.
 
 ## Used packages
 
@@ -21,6 +29,8 @@ There are 2 screens. The home screen displays a list of characters on a clickabl
 `provider` to handle app state.
 
 `url_launcher` to open a URL with the native web browser.
+
+`flutter_spinkit` to show a spinner when loading data from the API.
 
 ## Noteworthy widgets
 

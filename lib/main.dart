@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'screens/character_screen.dart';
+import 'screens/comics_screen.dart';
 import 'screens/home_screen.dart';
 
 import 'MarvelCharacters.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
       routes: {
         HomeScreen.id: (context) => HomeScreen(),
         CharacterScreen.id: (context) => CharacterScreen(),
+        ComicsScreen.id: (context) => ComicsScreen(),
       },
     );
   }
