@@ -1,9 +1,9 @@
-import 'dart:convert';
+// import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:http/http.dart' as http;
-import 'package:crypto/crypto.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
+// import 'package:http/http.dart' as http;
+// import 'package:crypto/crypto.dart';
 import 'package:provider/provider.dart';
 
 import 'screens/character_screen.dart';
@@ -11,40 +11,40 @@ import 'screens/home_screen.dart';
 
 import 'MarvelCharacters.dart';
 
-Future fetchCharacters() async {
-  var characters = [];
+// Future fetchCharacters() async {
+//   var characters = [];
 
-  await dotenv.load();
+//   await dotenv.load();
 
-  // Generate hash for API authentication
-  var ts = DateTime.now().millisecondsSinceEpoch.toString();
-  var apiKey = dotenv.env['MARVEL_API_PUBLIC_KEY'];
-  var privateKey = dotenv.env['MARVEL_API_PRIVATE_KEY'];
-  var unhashed = ts + privateKey + apiKey;
-  var hash = md5.convert(utf8.encode(unhashed)).toString();
+//   // Generate hash for API authentication
+//   var ts = DateTime.now().millisecondsSinceEpoch.toString();
+//   var apiKey = dotenv.env['MARVEL_API_PUBLIC_KEY'];
+//   var privateKey = dotenv.env['MARVEL_API_PRIVATE_KEY'];
+//   var unhashed = ts + privateKey + apiKey;
+//   var hash = md5.convert(utf8.encode(unhashed)).toString();
 
-  var url = Uri.https('gateway.marvel.com', '/v1/public/characters',
-      {'ts': ts, 'apikey': apiKey, 'hash': hash, 'limit': '20'});
+//   var url = Uri.https('gateway.marvel.com', '/v1/public/characters',
+//       {'ts': ts, 'apikey': apiKey, 'hash': hash, 'limit': '20'});
 
-  // Await the http get response, then decode the json-formatted response.
-  var response = await http.get(url);
-  if (response.statusCode == 200) {
-    var jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
-    characters = jsonResponse['data']['results'];
-  } else {
-    print('Request failed with status: ${response.statusCode}.');
-  }
+//   // Await the http get response, then decode the json-formatted response.
+//   var response = await http.get(url);
+//   if (response.statusCode == 200) {
+//     var jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
+//     characters = jsonResponse['data']['results'];
+//   } else {
+//     print('Request failed with status: ${response.statusCode}.');
+//   }
 
-  return characters;
-}
+//   return characters;
+// }
 
 Future main() async {
-  var characters = await fetchCharacters();
+  // var characters = await fetchCharacters();
 
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => MarvelCharacters(characters)),
+        ChangeNotifierProvider(create: (_) => MarvelCharacters()),
       ],
       child: MyApp(),
     ),
